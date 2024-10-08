@@ -1,72 +1,53 @@
-import Topo from './components/Topo';
-import Lateral from './components/Lateral';
-import Autor from './components/Autor';
-import Conteudo from './components/Conteudo';
-import Titulo from './components/Titulo';
-import Subtitulo from './components/Subtitulo';
-import React, {useState} from 'react';
+import React, { FormEvent, useState } from "react";
 
-function App(){
+function App() {
+  
+  const [nome, setNome] = useState("");
+  const [email, setEmail] = useState('');
+  const [mensagem, setMensagem] = useState('');
 
-  const [login, setLogin] = useState("Não Logado");
+  function handleSubmit(e: React.FormEvent){
+    e.preventDefault();
+    console.log(nome, email, mensagem);
+  }
+ 
 
-
-  return(
+  return (
     <>
-      <button onClick={()=>{setLogin("Logado")}}>
-        LOGIN        
-      </button>
-
-
-      <br />
-      <br />
-      <br />
-      {login}
-
-      <br />
-      <br />
-      <br />
-      <button onClick={()=>{setLogin("Não Logado")}}>
-        LOGOFF
-      </button>
-
-
+      <form onSubmit={handleSubmit}>
+        <p>Nome:</p>
+        <input
+          type="text"
+          required
+          onChange={(e)=>{setNome(e.target.value)}}
+          value={nome}
+        />
+        <br />
+        <p>Email:</p>
+        <input
+          type="text"
+          required
+          onChange={(e)=>{setEmail(e.target.value)}}
+          value={email}
+        />
+        
+        <br />
+        <br />
+        <p>Mensagem</p>
+        <textarea
+          required
+          name=""
+          id=""
+          placeholder="Digite sua mensagem..."
+          onChange={(e)=>{setMensagem(e.target.value)}}
+          
+        >{mensagem}</textarea>
+        <br />
+        <button type="submit">Enviar</button>
+      </form>
 
     </>
   );
 }
-
-/* function App() {
-  const name: string = "Paul"
-  function tecladoAtividade(){
-    alert('Digitou...');
-  }
-  
-  function comprar(){
-    alert("Finalizar compras do carrinho.");
-  }
-  return (
-    <div >
-
-      <Topo />
-      <br />
-      <Lateral />
-      <Autor name="Stll" last_name="Snts" age={34}/>
-      <Titulo />
-      <Subtitulo />
-      <Conteudo />
-      <br />
-      Olá, {name}!!!
-      <br />
-      <br />
-      <button onClick={()=>comprar()}>
-        Comprar
-      </button>
-      <br />
-      <br />
-      <input type="text" onChange={() => tecladoAtividade()}/>
-    </div>
-  );
-} */
 
 export default App;
