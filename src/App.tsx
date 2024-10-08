@@ -1,24 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Topo from './components/Topo';
+import Lateral from './components/Lateral';
+import Autor from './components/Autor';
+import Conteudo from './components/Conteudo';
+import Titulo from './components/Titulo';
+import Subtitulo from './components/Subtitulo';
 
 function App() {
+  const name: string = "Paul"
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div >
+      <Topo />
+      <br />
+      <Lateral />
+      <Autor name="Stll" last_name="Snts" />
+      <Titulo />
+      <Subtitulo />
+      <Conteudo />
+      <br />
+      Olá, {name}!!!
     </div>
   );
 }
