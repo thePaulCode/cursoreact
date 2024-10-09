@@ -1,51 +1,67 @@
 import React, { FormEvent, useState } from "react";
 
 function App() {
-  
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState('');
-  const [mensagem, setMensagem] = useState('');
+  const [primeiroNumero, setPrimeiroNumero] = useState<number>(0);
+  const [segundoNumero, setSegundoNumero] = useState<number>(0);
+  const [operacao, setOperacao] = useState("");
+  const [resultado, setResultado] = useState<number>(0);
 
-  function handleSubmit(e: React.FormEvent){
+  function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-    console.log(nome, email, mensagem);
+    switch (operacao) {
+      case "+":
+        setResultado(primeiroNumero + segundoNumero);
+        break;
+      case "-":
+        setResultado(primeiroNumero - segundoNumero);
+        break;
+      case "*":
+        setResultado(primeiroNumero * segundoNumero);
+        break;
+      case "/":
+        setResultado(primeiroNumero / segundoNumero);
+        break;
+
+      default:
+        break;
+    }
   }
- 
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <p>Nome:</p>
+      <form onSubmit={handleSubmit} action="">
         <input
-          type="text"
-          required
-          onChange={(e)=>{setNome(e.target.value)}}
-          value={nome}
+          type="number"
+          onChange={(e) => {
+            setPrimeiroNumero(e.target.valueAsNumber);
+          }}
+          value={primeiroNumero}
         />
-        <br />
-        <p>Email:</p>
-        <input
-          type="text"
-          required
-          onChange={(e)=>{setEmail(e.target.value)}}
-          value={email}
-        />
-        
-        <br />
-        <br />
-        <p>Mensagem</p>
-        <textarea
-          required
+        <select
           name=""
           id=""
-          placeholder="Digite sua mensagem..."
-          onChange={(e)=>{setMensagem(e.target.value)}}
-          
-        >{mensagem}</textarea>
-        <br />
-        <button type="submit">Enviar</button>
+          onChange={(e) => {
+            setOperacao(e.target.value);
+          }}
+          value={operacao}
+        >
+          <option value="">--Selecione a operação--</option>
+          <option value="+">+</option>
+          <option value="-">-</option>
+          <option value="/">/</option>
+          <option value="*">*</option>
+        </select>
+        <input
+          type="number"
+          name=""
+          id=""
+          onChange={(e) => {
+            setSegundoNumero(e.target.valueAsNumber);
+          }}
+          value={segundoNumero}
+        />
+        <button type="submit">Calcular</button> <b>Resultado: {resultado}</b>
       </form>
-
     </>
   );
 }
