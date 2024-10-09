@@ -1,4 +1,4 @@
-import React, { FormEvent, useState } from "react";
+import React, { FormEvent, useState, useEffect } from "react";
 
 function App() {
   const [primeiroNumero, setPrimeiroNumero] = useState<number>(0);
@@ -8,60 +8,75 @@ function App() {
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+  }
+
+  // se vazio [], useEffect executa primeiro de tudo
+  useEffect(() => {
     switch (operacao) {
       case "+":
-        setResultado(primeiroNumero + segundoNumero);
+        const resultadoSoma = primeiroNumero + segundoNumero;
+        if (!isNaN(resultadoSoma)) {
+          setResultado(resultadoSoma);
+        }
+
         break;
       case "-":
-        setResultado(primeiroNumero - segundoNumero);
+        const resultadoSub = primeiroNumero - segundoNumero;
+        if (!isNaN(resultadoSub)) {
+          setResultado(resultadoSub);
+        }
         break;
       case "*":
-        setResultado(primeiroNumero * segundoNumero);
+        const resultadoMult = primeiroNumero * segundoNumero;
+        if (!isNaN(resultadoMult)) {
+          setResultado(resultadoMult);
+        }
         break;
       case "/":
-        setResultado(primeiroNumero / segundoNumero);
+        const resultadoDivisao = primeiroNumero / segundoNumero;
+        if (!isNaN(resultadoDivisao)) {
+          setResultado(resultadoDivisao);
+        }
         break;
 
       default:
         break;
     }
-  }
+  }, [primeiroNumero, segundoNumero, operacao]);
 
   return (
     <>
-      <form onSubmit={handleSubmit} action="">
-        <input
-          type="number"
-          onChange={(e) => {
-            setPrimeiroNumero(e.target.valueAsNumber);
-          }}
-          value={primeiroNumero}
-        />
-        <select
-          name=""
-          id=""
-          onChange={(e) => {
-            setOperacao(e.target.value);
-          }}
-          value={operacao}
-        >
-          <option value="">--Selecione a operação--</option>
-          <option value="+">+</option>
-          <option value="-">-</option>
-          <option value="/">/</option>
-          <option value="*">*</option>
-        </select>
-        <input
-          type="number"
-          name=""
-          id=""
-          onChange={(e) => {
-            setSegundoNumero(e.target.valueAsNumber);
-          }}
-          value={segundoNumero}
-        />
-        <button type="submit">Calcular</button> <b>Resultado: {resultado}</b>
-      </form>
+      <input
+        type="number"
+        onChange={(e) => {
+          setPrimeiroNumero(e.target.valueAsNumber);
+        }}
+        value={primeiroNumero}
+      />
+      <select
+        name=""
+        id=""
+        onChange={(e) => {
+          setOperacao(e.target.value);
+        }}
+        value={operacao}
+      >
+        <option value="">--Selecione a operação--</option>
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="/">/</option>
+        <option value="*">*</option>
+      </select>
+      <input
+        type="number"
+        name=""
+        id=""
+        onChange={(e) => {
+          setSegundoNumero(e.target.valueAsNumber);
+        }}
+        value={segundoNumero}
+      />
+      <b>Resultado: {resultado}</b>
     </>
   );
 }
